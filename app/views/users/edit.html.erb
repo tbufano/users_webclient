@@ -1,0 +1,19 @@
+<h1>Edit an employee!</h1>
+
+<%= form_tag "/users/#{@user['id']}", method: :patch do %>
+  <div>
+    <%= label_tag :first_name %>
+    <%= text_field_tag :input_form_first_name, @user["firstName"] %>
+  </div>
+  <div>
+    <%= label_tag :last_name %>
+    <%= text_field_tag :input_form_last_name, @user["lastName"] %>
+  </div>
+  <div>
+    <%= label_tag :email %>
+    <%= text_field_tag :input_form_email, @user["email"] %>
+  </div>
+  <div>
+    <%= submit_tag "Edit User" %>
+  </div>
+<% end %>
