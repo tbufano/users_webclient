@@ -1,10 +1,16 @@
 <h1>This is the very user, yeah yeah.</h1>
 <p>
   <strong>Name: </strong>
-  <%= @user["firstName"] %>
-  <%= @user["lastName"] %>
+  <%= @user.first_name %>
+  <%= @user.last_name %>
 </p>
 <p>
   <strong>Email: </strong>
-  <%= @user["email"] %>
+  <%= @user.email %>
 </p>
+<div>
+  <%= link_to "Edit", "/users/#{@user.id}/edit" %>
+</div>
+<div>
+  <%= link_to "Delete", "/users/#{@user.id}", method: :delete %>
+</div>

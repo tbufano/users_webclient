@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = Unirest.get("http://localhost:3000/api/v1/users/#{params[:id]}").body
+    user_hash = Unirest.get("http://localhost:3000/api/v1/users/#{params[:id]}").body
+    @user = User.new(user_hash)
   end
 
   def new
@@ -38,5 +39,10 @@ class UsersController < ApplicationController
       }
     ).body
     redirect_to "/users/#{params[:id]}"
+  end
+
+  def destroy
+    @user = Unirest.delete("http://localhost:3000/api/v1/users/#{params[:id]}").body
+    redirect_to "/users"
   end
 end
