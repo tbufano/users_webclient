@@ -1,6 +1,6 @@
 <h1>All your users are belong to us.</h1>
 <% @users.each do |user| %>
   <hr>
-  <%= user["firstName"] %>
-  <%= user["lastName"] %>
+  <%= user.first_name %>
+  <%= user.last_name %>
 <% end %>
