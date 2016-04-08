@@ -1,15 +1,10 @@
 class UsersController < ApplicationController
   def index
-    user_hashes = Unirest.get("http://localhost:3000/api/v1/users").body
-    @users = []
-    user_hashes.each do |user_hash|
-      @users << User.new(user_hash)
-    end
+    @users = User.all
   end
 
   def show
-    user_hash = Unirest.get("http://localhost:3000/api/v1/users/#{params[:id]}").body
-    @user = User.new(user_hash)
+    @user = User.find_by(id: params[:id])
   end
 
   def new
