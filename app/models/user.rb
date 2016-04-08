@@ -25,7 +25,29 @@ class User
   end
 
   def self.find_by(input_options)
-    user_hash = Unirest.get("http://localhost:3000/api/v1/users/#{input_options[:id]}.json").body
+    user_hash = Unirest.get("http://localhost:3000/api/v1/users/#{input_options[:id]}").body
     User.new(user_hash)
+  end
+
+  def self.create(input_options)
+    user_hash = Unirest.post(
+      "http://localhost:3000/api/v1/users",
+      headers: { "Accept" => "application/json" },
+      parameters: input_options
+    ).body
+    User.new(user_hash)
+  end
+
+  def update(input_options)
+    user_hash = Unirest.patch(
+      "http://localhost:3000/api/v1/users/#{id}",
+      headers: { "Accept" => "application/json" },
+      parameters: input_options
+    ).body
+    User.new(user_hash)
+  end
+
+  def destroy
+    Unirest.delete("http://localhost:3000/api/v1/users/#{id}").body
   end
 end

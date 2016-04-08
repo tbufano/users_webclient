@@ -11,37 +11,31 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = Unirest.post(
-      "http://localhost:3000/api/v1/users",
-      headers: { "Accept" => "application/json" },
-      parameters: { 
-        first_name: params[:input_form_first_name], 
-        last_name: params[:input_form_last_name], 
-        email: params[:input_form_email]
-      }
-    ).body
-    redirect_to "/users/#{@user['id']}"
+    @user = User.create(
+      first_name: params[:input_form_first_name], 
+      last_name: params[:input_form_last_name], 
+      email: params[:input_form_email]
+    )
+    redirect_to "/users/#{@user.id}"
   end
 
   def edit
-    @user = Unirest.get("http://localhost:3000/api/v1/users/#{params[:id]}").body
+    @user = User.find_by(id: params[:id])
   end
 
   def update
-    @user = Unirest.patch(
-      "http://localhost:3000/api/v1/users/#{params[:id]}",
-      headers: { "Accept" => "application/json" },
-      parameters: { 
-        first_name: params[:input_form_first_name], 
-        last_name: params[:input_form_last_name], 
-        email: params[:input_form_email]
-      }
-    ).body
-    redirect_to "/users/#{params[:id]}"
+    @user = User.find_by(id: params[:id])
+    @user.update(
+      first_name: params[:input_form_first_name], 
+      last_name: params[:input_form_last_name], 
+      email: params[:input_form_email]
+    )
+    redirect_to "/users/#{@user.id}"
   end
 
   def destroy
-    @user = Unirest.delete("http://localhost:3000/api/v1/users/#{params[:id]}").body
+    @user = User.find_by(id: params[:id])
+    @user.destroy
     redirect_to "/users"
   end
 end
